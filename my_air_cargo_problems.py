@@ -261,32 +261,27 @@ def air_cargo_p2() -> AirCargoProblem:
             expr('At(P2, JFK)'),
             expr('At(P3, ATL)'),
             ]
-    neg = [expr('At(C3, SFO)'),
-            expr('At(C3, JFK)'),
-            expr('In(C3, P1)'),
-            expr('In(C3, P2)'),
-            expr('In(C3, P3)'),
-            expr('At(C2, SFO)'),
-            expr('At(C2, ATL)'),
-            expr('In(C2, P1)'),
-            expr('In(C2, P2)'),
-            expr('In(C2, P3)'),
-            expr('At(C2, SFO)'),
-            expr('At(C2, ATL)'),
-            expr('In(C2, P1)'),
-            expr('In(C2, P2)'),
-            expr('In(C2, P3)'),
-            expr('At(C1, JFK)'),
+    neg = [expr('At(C1, JFK)'),
             expr('At(C1, ATL)'),
-            expr('In(C1, P1)'),
-            expr('In(C1, P2)'),
-            expr('In(C1, P3)'),
+            expr('At(C2, SFO)'),
+            expr('At(C2, ATL)'),
+            expr('At(C3, SFO)'),
+            expr('At(C3, JFK)'),
             expr('At(P1, JFK)'),
             expr('At(P1, ATL)'),
             expr('At(P2, SFO)'),
             expr('At(P2, ATL)'),
             expr('At(P3, SFO)'),
-            expr('At(P3, JFK)')
+            expr('At(P3, JFK)'),
+            expr('In(C1, P1)'),
+            expr('In(C1, P2)'),
+            expr('In(C1, P3)'),
+            expr('In(C2, P1)'),
+            expr('In(C2, P2)'),
+            expr('In(C2, P3)'),
+            expr('In(C3, P1)'),
+            expr('In(C3, P2)'),
+            expr('In(C3, P3)'),
             ]
 
     init = FluentState(pos, neg)
@@ -300,8 +295,17 @@ def air_cargo_p2() -> AirCargoProblem:
 
 def air_cargo_p3() -> AirCargoProblem:
 
+    '''
+    Init(At(C1, SFO) ∧ At(C2, JFK) ∧ At(C3, ATL) ∧ At(C4, ORD)
+    ∧ At(P1, SFO) ∧ At(P2, JFK)
+    ∧ Cargo(C1) ∧ Cargo(C2) ∧ Cargo(C3) ∧ Cargo(C4)
+    ∧ Plane(P1) ∧ Plane(P2)
+    ∧ Airport(JFK) ∧ Airport(SFO) ∧ Airport(ATL) ∧ Airport(ORD))
+    Goal(At(C1, JFK) ∧ At(C3, JFK) ∧ At(C2, SFO) ∧ At(C4, SFO))
+    '''
+
     cargos = ['C1', 'C2', 'C3', 'C4']
-    planes = ['P1', 'P2', 'P3', 'P4']
+    planes = ['P1', 'P2']
     airports = ['SFO', 'JFK', 'ATL', 'ORD']
     pos = [expr('At(C1, SFO)'),
             expr('At(C2, JFK)'),
@@ -310,53 +314,34 @@ def air_cargo_p3() -> AirCargoProblem:
             expr('At(P1, SFO)'),
             expr('At(P2, JFK)'),
             ]
-    neg = [expr('At(C4, SFO)'),
-            expr('At(C4, JFK)'),
-            expr('At(C4, ATL)'),
-            expr('In(C4, P1)'),
-            expr('In(C4, P2)'),
-            expr('In(C4, P3)'),
-            expr('In(C4, P4)'),
+    neg = [expr('At(C1, JFK)'),
+            expr('At(C1, ATL)'),
+            expr('At(C1, ORD)'),
+            expr('At(C2, SFO)'),
+            expr('At(C2, ATL)'),
+            expr('At(C2, ORD)'),
             expr('At(C3, SFO)'),
             expr('At(C3, JFK)'),
             expr('At(C3, ORD)'),
-            expr('In(C3, P1)'),
-            expr('In(C3, P2)'),
-            expr('In(C3, P3)'),
-            expr('In(C3, P4)'),
-            expr('At(C2, SFO)'),
-            expr('At(C2, ATL)'),
-            expr('At(C2, ORD)'),
-            expr('In(C2, P1)'),
-            expr('In(C2, P2)'),
-            expr('In(C2, P3)'),
-            expr('In(C2, P4)'),
-            expr('At(C2, SFO)'),
-            expr('At(C2, ATL)'),
-            expr('At(C2, ORD)'),
-            expr('In(C2, P1)'),
-            expr('In(C2, P2)'),
-            expr('In(C2, P3)'),
-            expr('In(C2, P4)'),
-            expr('At(C1, JFK)'),
-            expr('At(C1, ATL)'),
-            expr('At(C1, ORD)'),
-            expr('In(C1, P1)'),
-            expr('In(C1, P2)'),
-            expr('In(C1, P3)'),
-            expr('In(C1, P4)'),
+            expr('At(C4, SFO)'),
+            expr('At(C4, JFK)'),
+            expr('At(C4, ATL)'),
+            #plains
             expr('At(P1, JFK)'),
             expr('At(P1, ATL)'),
             expr('At(P1, ORD)'),
             expr('At(P2, SFO)'),
             expr('At(P2, ATL)'),
             expr('At(P2, ORD)'),
-            expr('At(P3, SFO)'),
-            expr('At(P3, JFK)'),
-            expr('At(P3, ORD)'),
-            expr('At(P4, SFO)'),
-            expr('At(P4, JFK)'),
-            expr('At(P4, ATL)'),
+            #cagos and plains
+            expr('In(C1, P1)'),
+            expr('In(C1, P2)'),
+            expr('In(C2, P1)'),
+            expr('In(C2, P2)'),
+            expr('In(C3, P1)'),
+            expr('In(C3, P2)'),
+            expr('In(C4, P1)'),
+            expr('In(C4, P2)'),
             ]
 
     init = FluentState(pos, neg)
